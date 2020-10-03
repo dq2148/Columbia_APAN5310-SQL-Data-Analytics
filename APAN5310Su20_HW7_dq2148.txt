@@ -1,0 +1,222 @@
+# -- APAN 5310: SQL & RELATIONAL DATABASES SUMMER 2020
+
+#   -------------------------------------------------------------------------
+#   --                                                                     --
+#   --                            HONOR CODE                               --
+#   --                                                                     --
+#   --  I affirm that I will not plagiarize, use unauthorized materials,   --
+#   --  or give or receive illegitimate help on assignments, papers, or    --
+#   --  examinations. I will also uphold equity and honesty in the         --
+#   --  evaluation of my work and the work of others. I do so to sustain   --
+#   --  a community built around this Code of Honor.                       --
+#   --                                                                     --
+#   -------------------------------------------------------------------------
+
+
+#     You are responsible for submitting your own, original work. We are
+#     obligated to report incidents of academic dishonesty as per the
+#     Student Conduct and Community Standards.
+
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+#
+#
+# -- HOMEWORK ASSIGNMENT 7
+#
+#
+#   NOTES:
+#
+#     - Type your code between the START and END tags. Code should cover all
+#       questions. Do not alter this template file in any way other than
+#       adding your answers. Do not delete the START/END tags. The file you
+#       submit will be validated before grading and will not be graded if it
+#       fails validation due to any alteration of the commented sections.
+#
+#     - Make sure you test each one of your answers. If a query returns an 
+#       error it will earn no points.
+#
+#     - In your CREATE TABLE statements you must provide data types AND
+#       primary/foreign keys (if applicable).
+#
+#     - You may expand your answers in as many lines as you find appropriate
+#       between the START/END tags.
+#
+#   Homework scenario
+#      The following dataset is a record set of games in a local 
+#      chess club, which consists of multiple matches. 
+#      Each log have the following attributes:
+#
+#         match_id
+#         player_1 (e.g., "Kasparov", "Ding")
+#         player_2 (e.g., "Kasparov", "Ding")
+#         match_date (e.g., "01/02/2020")
+#         result ("player_1 win", "player_2 win", "draw")
+#
+#      In addition, depending on the game, there might be other 
+#      information recorded as "note". For example, a game 
+#      may be recorded as "shortest game in club history", 
+#      and/or "longest winning streak in New York City".
+#
+#      The complete list of 4 log entries are as following:
+
+       match_id: 1
+       player_1: Michael Tupolev
+       player_2: Kathy Chen
+       match_date: "01/02/2020"
+       minutes: 210
+       result: "player_2 win"
+       note: (There are two notes in this record. 
+          You must implement each as a separate entry.)
+          It is Kathy's first official game.
+          Youngest player to win a game.
+
+       match_id: 6
+       player_1: Tony Gonzalez Jr.
+       player_2: Tim Bowman
+       match_date: "04/30/2020"
+       minutes: 112
+       result: "draw"
+       note: (The note itself is a document)
+          Coach of player_1: Tony Gonzalez Sr.
+
+       match_id: 11
+       player_1: Susan Neuswanberg
+       player_2: Tim Bowman
+       match_date: "05/26/2020"
+       minutes: 123
+       result: "player_2 win"
+
+       match_id: 31
+       player_1: Susan Neuswanberg
+       player_2: Kathy Chen
+       match_date: "01/02/2020"
+       minutes: 89
+       result: "player_1 win"
+
+
+
+# -----------------------------------------------------------------------------
+
+
+#
+#  QUESTION 1 (20 points)
+#  ---------------------
+#  Type the command that imports all rows of the provided dataset in MongoDB,
+#  in a single command, NO multiple insert commands. Apply nesting for groups
+#  of similar data, for example query statements. Change the key names
+#  of the grouped data as you see fit. 
+#
+#  NOTE: In your answers for this and the following questions, type FULL code
+#        with appropriate spaces and line breaks so that the structure can be
+#        easily read. DO NOT provide flattened and/or single-line answers.
+
+# -- START ANSWER 1 --
+
+db.game.insertMany(
+   [
+      {
+         "match_id":1,
+         "player_1":"Michael Tupolev",
+         "player_2":"Kathy Chen",
+         "match_date":"01/02/2020",
+         "minutes":210,
+         "result":"player_2 win",
+	 "note":["It is Kathy's first official game.","Youngest player to win a game."]
+      },
+      {
+         "match_id":6,
+         "player_1":"Tony Gonzalez Jr.",
+         "player_2":"Tim Bowman",
+         "match_date":"04/30/2020",
+         "minutes":112,
+         "result":"draw",
+	 "note":["Coach of player_1: Tony Gonzalez Sr."]
+      },
+      {
+         "match_id":11,
+         "player_1":"Susan Neuswanberg",
+         "player_2":"Tim Bowman",
+         "match_date":"05/26/2020",
+         "minutes":123,
+         "result":"player_2 win"
+      },
+      {
+         "match_id":31,
+         "player_1":"Susan Neuswanberg",
+         "player_2":"Kathy Chen",
+         "match_date":"01/02/2020",
+         "minutes":89,
+         "result":"player_1 win"
+      }
+   ]
+)
+
+
+
+# -- END ANSWER 1 --
+
+# -----------------------------------------------------------------------------
+
+#  QUESTION 2 (20 point)
+#  --------------------
+#  Provide the command that returns the number of documents (count) where the
+#  result is "player_2 win".
+#
+
+# -- START ANSWER 2 --
+
+db.game.count({"result" : "player_2 win"})
+
+# -- END ANSWER 2 --
+
+# -----------------------------------------------------------------------------
+
+#  QUESTION 3 (20 point)
+#  --------------------
+#  Provide the command that returns a count of notes.
+#
+#  NOTE: Not all documents has an attribute called "note". 
+#     What do you think MongoDB will respond to your request? Will the 
+#     operation fail because some documents do not have "note"?
+#     What if this is a relational database?
+#
+
+# -- START ANSWER 3 --
+
+db.game.distinct("note").length
+
+# -- END ANSWER 3 --
+
+# -----------------------------------------------------------------------------
+
+#  QUESTION 4 (20 point)
+#  --------------------
+#  Provide the command that updates the result attribute for 
+#  game "6" to "player_1 win". Then display the full value of this document 
+#  to confirm your change is successful.
+#
+
+# -- START ANSWER 4 --
+
+db.game.update({"match_id":6},{$set:{"result":"player_1 win"}})
+db.game.find({"match_id":6})
+
+# -- END ANSWER 4 --
+
+# -----------------------------------------------------------------------------
+
+#  QUESTION 5 (20 points)
+#  ---------------------
+#  Provide the command that returns the average duration of all 
+#  games which contain the word "win" in its result, grouped by 
+#  the type of result (player_1 win or player_2 win).
+#
+
+# -- START ANSWER 5 --
+
+db.game.aggregate([{$match:{"result":{$regex:"win",$options:"i"}}},{$group:{_id:"$result",average_duration:{$avg:"$minutes"}}}])
+
+# -- END ANSWER 5 --
+
+# -----------------------------------------------------------------------------

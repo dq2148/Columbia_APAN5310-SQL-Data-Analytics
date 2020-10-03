@@ -1,0 +1,494 @@
+{\rtf1\ansi\ansicpg936\cocoartf2509
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww21740\viewh13120\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 -- APAN 5310: SQL & RELATIONAL DATABASES SUMMER 2019 (F2F)\
+\
+   -------------------------------------------------------------------------\
+   --                                                                     --\
+   --                            HONOR CODE                               --\
+   --                                                                     --\
+   --  I affirm that I will not plagiarize, use unauthorized materials,   --\
+   --  or give or receive illegitimate help on assignments, papers, or    --\
+   --  examinations. I will also uphold equity and honesty in the         --\
+   --  evaluation of my work and the work of others. I do so to sustain   --\
+   --  a community built around this Code of Honor.                       --\
+   --                                                                     --\
+   -------------------------------------------------------------------------\
+\
+/*\
+ *    You are responsible for submitting your own, original work. We are\
+ *    obligated to report incidents of academic dishonesty as per the\
+ *    Student Conduct and Community Standards.\
+ */\
+\
+\
+-------------------------------------------------------------------------------\
+-------------------------------------------------------------------------------\
+\
+\
+-- HOMEWORK ASSIGNMENT 2 (DUE 6/9/2019, 11:59 pm EST)\
+\
+/*\
+ *  NOTES:\
+ *\
+ *    - Type your SQL statements between the START and END tags for each\
+ *      question, as shown in the example. Do not alter this template .sql file\
+ *      in any other way other than adding your answers. Do not delete the\
+ *      START/END tags. The .sql file you submit will be validated before\
+ *      grading and will not be graded if it fails validation due to any\
+ *      alteration of the commented sections.\
+ *\
+ *    - Our course is using PostgreSQL which has been preinstalled for you in\
+ *      Codio. We grade your assignments in PostgreSQL. You risk losing points\
+ *      if you prepare your SQL queries for a different database system\
+ *      (MySQL, MS SQL Server, Oracle, etc).\
+ *\
+ *    - It is highly recommended that you insert additional, appropriate data\
+ *      to test the results of your queries. You do not need to include your\
+ *      sample data in your answers.\
+ *\
+ *    - Make sure you test each one of your answers. If a query returns an\
+ *      error it will earn no points.\
+ *\
+ */\
+\
+\
+/*\
+ * EXAMPLE\
+ * -------\
+ *\
+ * Provide the SQL statement that returns all attributes and tuples from\
+ * a relation named "table1".\
+ *\
+ */\
+\
+-- START EXAMPLE --\
+\
+SELECT * FROM table1;\
+\
+-- END EXAMPLE --\
+\
+\
+\
+-------------------------------------------------------------------------------\
+\
+\
+\
+/*\
+ * QUESTION 1 (2 points)\
+ * ---------------------\
+ *\
+ * Provide the SQL statement that creates a relation named "movies" with the\
+ * following attributes:\
+ *\
+ *   - id : autoincrementing integer\
+ *   - title : variable length character string of length 150\
+ *   - short_description : variable length character string of length 300\
+ *   - storyline : variable unlimited length character string\
+ *   - budget : fixed point number with 12 digits, 2 decimals\
+ *   - release_date : date only (no time of day)\
+ *   - runtime : small integer (minutes)\
+ *   - director : variable length character string of length 100\
+ *   - genres : variable length character string of length 125\
+ *   - rating : fixed point number with 3 digits, 1 decimals\
+ *\
+ * Make sure to define meaningful integrity constraints.\
+ *\
+ */\
+\
+-- START ANSWER 1 --\
+\
+\
+CREATE TABLE movies(\
+	id int,\
+	title varchar(150),\
+	short_description varchar(300),\
+	storyline text,\
+	budget numeric(12,2),\
+	release_date date,\
+	runtime smallint,\
+	director varchar(100),\
+	genres varchar(125),\
+	rating numeric(3,1),\
+	PRIMARY KEY (ID));\
+\
+\
+-- END ANSWER 1 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 2 (1 point)\
+ * --------------------\
+ *\
+ * Provide the SQL statement that populates the "movies" relation with values as\
+ * shown in the following table. (Note: you must insert data with a single\
+ * statement, not multiple INSERT statements)\
+ *\
+ *   - id : 30\
+ *   - title : Interstellar\
+ *   - short_description : A team of explorers travel through a wormhole ...\
+ *   - storyline : Earth's future has been riddled by disasters, famines, ...\
+ *   - budget : 165,000,000\
+ *   - release_date : 7 November 2014\
+ *   - runtime : 169\
+ *   - director : Christopher Nolan\
+ *   - genres : Adventure, Drama, Sci-Fi, Thriller\
+ *   - rating : 8.6\
+ *\
+ *\
+ *   - id : 31\
+ *   - title : Coco\
+ *   - short_description : Aspiring musician Miguel, confronted with his family's ...\
+ *   - storyline : Despite his family's baffling generations-old ban on music, Miguel dreams of ...\
+ *   - budget :\
+ *   - release_date : 22 November 2017\
+ *   - runtime : 105\
+ *   - director : Lee Unkrich, Adrian Molina\
+ *   - genres : Animation, Adventure, Family\
+ *   - rating : 8.4\
+ *\
+ *\
+ *   - id : 32\
+ *   - title : The Shawshank Redemption\
+ *   - short_description : Two imprisoned men bond over a number of years, finding solace ...\
+ *   - storyline : Chronicles the experiences of a formerly successful banker as a prisoner ...\
+ *   - budget : 25,000,000\
+ *   - release_date : 14 October 1994\
+ *   - runtime : 142\
+ *   - director : Frank Darabont\
+ *   - genres : Drama\
+ *   - rating : 9.3\
+ *\
+ *\
+ *   - id : 33\
+ *   - title : Parasite\
+ *   - short_description : Greed and class discrimination threaten the newly formed symbiotic ...\
+ *   - storyline : The Kims - mother and father Chung-sook and Ki-taek, and their young adult offspring ...\
+ *   - budget : 11,400,000\
+ *   - release_date : 8 November 2019\
+ *   - runtime : 132\
+ *   - director : Bong Joon Ho\
+ *   - genres : Comedy, Drama, Thriller\
+ *   - rating :\
+ *\
+ */\
+\
+-- START ANSWER 2 --\
+\
+INSERT INTO movies VALUES(\
+	30, \
+	'Interstellar',\
+	'A team of explorers travel through a wormhole ...',\
+	'Earth"s future has been riddled by disasters, famines, ...',\
+	165000000,\
+	'7 November 2014',\
+	169,\
+	'Christopher Nolan',\
+	'Adventure, Drama, Sci-Fi, Thriller',\
+	8.6);\
+\
+INSERT INTO movies VALUES(\
+	31,\
+	'Coco',\
+	'Aspiring musician Miguel, confronted with his family"s...',\
+	'Despite his family"s baffling generations-old ban on music, Miguel dreams of ...',\
+	Null,\
+	'22 November 2017',\
+	105,\
+	'Lee Unkrich, Adrian Molina',\
+	'Animation, Adventure, Family',\
+	8.4);\
+\
+INSERT INTO movies VALUES(\
+	32,\
+	'The Shawshank Redeption',\
+	'Two imprisoned men bond over a number of years, finding solace...',\
+	'Chronicles the experiences of a formerly successful banker as a prisoner...',\
+	25000000,\
+	'14 October 1994',\
+	142,\
+	'Frank Darabont',\
+	'Drama',\
+	9.3);\
+\
+ INSERT INTO movies VALUES(\
+ 	33,\
+ 	'Parasite',\
+ 	'Greed and class discrimination threaten the newly formed symbiotic...',\
+ 	'The Kims - mother and father Chung-sook and Ki-taek, and their young adult offspring ...',\
+	11400000,\
+ 	'8 November 2019',\
+ 	132,\
+ 	'Bong Joon Ho',\
+ 	'Comedy, Drama, Thriller',\
+ 	Null);\
+\
+-- END ANSWER 2 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 3 (1 point)\
+ * --------------------\
+ *\
+ * Provide the SQL statement that returns all attributes and tuples from table\
+ * "movies", with a rating higher than 8.5.\
+ *\
+ */\
+\
+-- START ANSWER 3 --\
+\
+SELECT * FROM movies\
+WHERE rating > 8.5;\
+\
+-- END ANSWER 3 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 4 (1 point)\
+ * --------------------\
+ *\
+ * Provide the SQL statement that returns the title, release date and runtime\
+ * (in decimal hours) of all movies.\
+ *\
+ */\
+\
+-- START ANSWER 4 --\
+\
+SELECT title, release_date, runtime/60.0 AS runtime_in_hour\
+FROM movies;\
+\
+-- END ANSWER 4 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 5 (1 point)\
+ * --------------------\
+ *\
+ * Provide the SQL statement that returns the title and rating of all movies\
+ * directed by either one of the Nolan brothers (Christopher or Jonathan).\
+ *\
+ */\
+\
+-- START ANSWER 5 --\
+\
+SELECT title, rating, director FROM movies\
+WHERE director = 'Christopher Nolan' OR director = 'Jonathan Nolan';\
+\
+-- END ANSWER 5 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 6 (1 point)\
+ * --------------------\
+ *\
+ * Provide the SQL statement that creates a relation named "actors" with the\
+ * following attributes:\
+ *\
+ *   - id : autoincrementing integer\
+ *   - name : variable length character string of length 100\
+ *   - dob (date of birth) : date only (no time of day)\
+ *   - nationality : variable length character string of length 30\
+ *\
+ * Make sure to define meaningful integrity constraints.\
+ *\
+ * Note: You may insert sample data for actors to test your queries, we do not\
+ * need to check your sample values, do not provide them with your answer.\
+ *\
+ */\
+\
+-- START ANSWER 6 --\
+\
+\
+CREATE TABLE actors(\
+	id int,\
+	name varchar(100),\
+	dob date,\
+	nationality varchar(30),\
+	PRIMARY KEY (id));\
+\
+\
+-- END ANSWER 6 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 7 (1 point)\
+ * --------------------\
+ *\
+ * Provide the SQL statements that alter relation "movies" adding an attribute\
+ * called "actor_id" (integer) as well as defining a foreign key on this attribute\
+ * that references the id attribute from the "actors" relation. (note: adding\
+ * the new attribute will result in the existing records in the table to have\
+ * a NULL value for actor_id. It is up to you to insert meaningful values in\
+ * order to test your queries, we do not need to see/check these values.)\
+ *\
+ */\
+\
+-- START ANSWER 7 --\
+\
+ALTER TABLE movies\
+ADD COLUMN actor_id int, \
+ADD FOREIGN KEY (actor_id) REFERENCES actors(id);\
+\
+-- END ANSWER 7 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 8 (1 point)\
+ * --------------------\
+ *\
+ * Provide the SQL statement that returns the title, director and only the year\
+ * part of the release date of all movies released after 2016.\
+ *\
+ */\
+\
+-- START ANSWER 8 --\
+\
+SELECT title, director, EXTRACT(YEAR FROM release_date) AS release_year\
+FROM movies;\
+\
+-- END ANSWER 8 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 9 (1 point)\
+ * --------------------\
+ *\
+ * Provide the SQL statement that returns the title, budget, rating and actor\
+ * nationality of all movies starring American actors (i.e. nationality is "USA").\
+ * Order the results by descending budget. (Hint: we are not implementing joins\
+ * yet, use the cartesian product)\
+ *\
+ */\
+\
+-- START ANSWER 9 --\
+\
+SELECT M.title, M.budget, M.rating, A.nationality\
+FROM movies M, actors A\
+WHERE A.nationality = 'USA' AND M.actor_id = A.id\
+ORDER BY M.budget DESC;\
+\
+-- END ANSWER 9 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 10 (1 point)\
+ * ---------------------\
+ *\
+ * Provide the SQL statement that returns the title of all movies where the\
+ * director was also an actor in the movie (hint: assume that the movie had one\
+ * director only).\
+ *\
+ */\
+\
+-- START ANSWER 10 --\
+\
+SELECT M.title\
+FROM movies M, actors A\
+WHERE M.director = A.name AND M.actor_id = A.id;\
+\
+-- END ANSWER 10 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 11 (1 point)\
+ * ---------------------\
+ *\
+ * Provide the SQL statement that replaces the NULL values for budget with the\
+ * number zero (0), for all movies where the budget is not known.\
+ *\
+ */\
+\
+-- START ANSWER 11 --\
+\
+SELECT COALESCE(budget, 0)\
+FROM movies;\
+\
+-- END ANSWER 11 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 12 (1 point)\
+ * ---------------------\
+ *\
+ * Provide the SQL statement that returns the average movie budget per director.\
+ *\
+ */\
+\
+-- START ANSWER 12 --\
+\
+SELECT ROUND(AVG(budget),2) FROM movies;\
+\
+-- END ANSWER 12 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 13 (1 point)\
+ * ---------------------\
+ *\
+ * Provide the SQL statement that returns the title, genre and release date of\
+ * all "Sci-Fi" movies.\
+ *\
+ */\
+\
+-- START ANSWER 13 --\
+\
+SELECT title, genres, release_date\
+FROM movies\
+WHERE genres LIKE '%Sci-Fi%';\
+\
+-- END ANSWER 13 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 14 (1 point)\
+ * ---------------------\
+ *\
+ * Provide the SQL statement that deletes all movies with a budget less than\
+ * $10,000,000 and rating less than 7.5.\
+ *\
+ */\
+\
+-- START ANSWER 14 --\
+\
+DELETE FROM movies\
+WHERE budget < 10000000 AND rating < 7.5;\
+\
+\
+-- END ANSWER 14 --\
+\
+-------------------------------------------------------------------------------\
+\
+/*\
+ * QUESTION 15 (1 point)\
+ * ---------------------\
+ *\
+ * Provide the SQL statement that removes the "actors" relation from the\
+ * database.\
+ *\
+ */\
+\
+-- START ANSWER 15 --\
+\
+DROP TABLE actors CASCADE;\
+\
+-- END ANSWER 15 --\
+\
+-------------------------------------------------------------------------------\
+}
